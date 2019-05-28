@@ -27,20 +27,10 @@ CLEAN << 'doc'
 
 require 'yardstick/rake/verify'
 require 'yaml'
-options = YAML.load_file('.yardstick.yml')
-Yardstick::Rake::Verify.new('yardstick:verify', options)
+Yardstick::Rake::Verify.new('yardstick:verify')
 
 require 'yardstick/rake/measurement'
-Yardstick::Rake::Measurement.new('yardstick:measure', options) do |task|
-  # task.output = Object.new do
-  #   def write(&block)
-  #     block.call(STDOUT)
-  #   end
-  #   def to_s
-  #     'STDOUT'
-  #   end
-  # end
-end
+Yardstick::Rake::Measurement.new('yardstick:measure')
 CLEAN << 'measurements'
 
 desc 'Run yardstick to check yard docs'
