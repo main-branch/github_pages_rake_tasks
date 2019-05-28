@@ -1,0 +1,25 @@
+AllCops:
+  # Output extra information for each offense to make it easier to diagnose:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
+  # Rubocop enforces rules depending on the oldest version of Ruby which
+  # your project supports:
+  TargetRubyVersion: 2.5
+
+# The default max line length for this project
+Metrics/LineLength:
+  Max: 100
+
+# The DSL for RSpec and the gemspec file make it very hard to limit block length:
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*_spec.rb"
+    - "*.gemspec"
+
+# All Ruby files are required to have a Copyright notice.
+# Run `rubocop -a` to automatically add missing copyright notices.
+Style/Copyright:
+  Enabled: true
+  Notice: 'Copyright (\(c\) )?2019 James Couball'
+  AutocorrectNotice: "# Copyright (c) 2019 James Couball\n"
