@@ -1,5 +1,7 @@
 # Publish Documentation to GitHub Pages
 
+[![Build Status](https://travis-ci.com/jcouball/github_pages_rake_tasks.svg?branch=master)](https://travis-ci.com/jcouball/github_pages_rake_tasks)
+
 The `github_pages_rake_tasks` gem creates a rake task that pushes the contents
 from a local documentation directory to a remote Git repository branch.
 
