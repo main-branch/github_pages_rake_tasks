@@ -16,6 +16,8 @@ deploy:
     github_token: $GITHUB_TOKEN
     local_dir: doc
     verbose: true
+    on:
+      rvm: 2.4
 
   - provider: rubygems
     api_key:
