@@ -1,7 +1,17 @@
----
-sudo: false
 language: ruby
+
 cache: bundler
+
 rvm:
-  - 2.6.3
-before_install: gem install bundler -v 2.0.1
+  - 2.3
+  - 2.4
+  - 2.5
+  - 2.6
+
+deploy:
+  provider: rubygems
+  api_key:
+    secure: HA1sMG5jqnSSpcIEi0Ej3HDAzff5dMNvGeb1FK5BAnfV+C5pHTkUU26+fEUmrr31nDeU3hgEv+rDdz7+Udt5hO9NGIF3bRhlqBYkkaIwLfOragaoROyq+tAPag7Mm5VKfzbXYE7dqEDZSQLjHIiY3UxksNnV3kQ+VvXL1eHg5n765EnwJP2F+FYWd7NBaq+QitdKEUZlY1Xktyq+5Isk7g0mYKZEf8K1S7MU79m4vHLI6GAT2sTCxGSsAAJejL7OYNF7Yo/8DcIsyqQjjJmkZVbHfIgpw9GrQVILNeP+4tA4LdZ9us/uk+VyM5iWMdAvQk9MW3Sl3VNo2fj9IYkOtTpqPiHoWD/zKdjI0qeDFLhaj7inSvLsXRL3IAibGV0zaNi7pNg5bwL4jKcXQDeJri4m0eKfYZQKOXQ9NqbnAHUiSrpdgJxbzmaZvMfIEI18aBXa3xdKKdBQk0ogeh2FvqIL7dCHamMsyAZRWIqOLiKwNnZ2o/4JvCgnELPo/nhmvdAE08KV4i3TE8eHBipY6ZLIThVMNURGAF9Le4bcFrGcCvPVEvzPXHV9QE91cQ8mN9NM9Rz3SZuqvSIwLGDAmor5oyxnWr9Vwm2S/7OAxdD2X2l+sTks0U/EXQ+I+axEexMUgCOgUChSz8pAHxujc+/nRLJ4VE/MZ1ZO7KMAMok=
+  gem: github_pages_rake_tasks
+  on:
+    repo: jcouball/github_pages_rake_tasks
