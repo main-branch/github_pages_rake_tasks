@@ -1,6 +1,6 @@
 # Publish Documentation to GitHub Pages
 
-[![Gem Version](https://badge.fury.io/rb/github_pages_rake_tasks.svg)](https://badge.fury.io/rb/github_pages_rake_tasks) •
+[![Gem Version](https://badge.fury.io/rb/github_pages_rake_tasks.svg)](https://badge.fury.io/rb/github_pages_rake_tasks)
 [![Build Status](https://travis-ci.com/jcouball/github_pages_rake_tasks.svg?branch=master)](https://travis-ci.com/jcouball/github_pages_rake_tasks)
 
 The `github_pages_rake_tasks` gem creates a rake task that pushes the contents
