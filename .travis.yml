@@ -4,20 +4,9 @@ language: ruby
 cache: bundler
 
 rvm:
-  - 2.3
-  - 2.4
+  - &release_rvm 2.4
   - 2.5
   - 2.6
-
-matrix:
-  include:
-    - if: type = pull_request
-      rvm:
-        - 2.4
-        - 2.5
-        - 2.6
-
-before_install: gem install bundler -v 2.0.1
 
 deploy:
   - provider: rubygems
@@ -27,11 +16,11 @@ deploy:
     on:
       repo: jcouball/github_pages_rake_tasks
       branch: master
-      rvm: 2.3
+      rvm: *release_rvm
   - provider: pages
     skip_cleanup: true
-    github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+    github_token: $GITHUB_TOKEN
     keep_history: true
     on:
       branch: master
-      rvm: 2.3
+      rvm: *release_rvm
