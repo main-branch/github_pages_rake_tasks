@@ -1,12 +1,14 @@
 ---
 language: ruby
 
-cache: bundler
-
 rvm:
   - &release_rvm 2.4
   - 2.5
   - 2.6
+
+cache: bundler
+
+before_install: gem install bundler -v 2.0.1
 
 deploy:
   - provider: rubygems
