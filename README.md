@@ -3,6 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/github_pages_rake_tasks.svg)](https://badge.fury.io/rb/github_pages_rake_tasks)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.com/jcouball/github_pages_rake_tasks.svg?branch=master)](https://travis-ci.com/jcouball/github_pages_rake_tasks)
+[![Documentation](https://img.shields.io/badge/Documentation-OK-green.svg)](https://jcouball.github.io/github_pages_rake_tasks/)
 
 The `github_pages_rake_tasks` gem creates a rake task that pushes the contents
 from a local documentation directory to a remote Git repository branch.
