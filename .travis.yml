@@ -2,9 +2,7 @@
 language: ruby
 
 rvm:
-  - &release_rvm 2.4
-  - 2.5
-  - 2.6
+  - 2.4
 
 cache: bundler
 
@@ -18,11 +16,3 @@ deploy:
     on:
       repo: jcouball/github_pages_rake_tasks
       branch: master
-      rvm: *release_rvm
-  - provider: pages
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN
-    keep_history: true
-    on:
-      branch: master
-      rvm: *release_rvm
