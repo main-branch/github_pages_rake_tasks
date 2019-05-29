@@ -8,7 +8,7 @@ rvm:
 
 matrix:
   include:
-    - if: ! branch =~ /master/
+    - if: type = pull_request
       rvm:
         - 2.4
         - 2.5
@@ -24,9 +24,11 @@ deploy:
     on:
       repo: jcouball/github_pages_rake_tasks
       branch: master
+      rvm: 2.3
   - provider: pages
     skip_cleanup: true
     github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
     keep_history: true
     on:
       branch: master
+      rvm: 2.3
