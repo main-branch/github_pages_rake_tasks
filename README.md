@@ -1,5 +1,7 @@
 # Publish Documentation to GitHub Pages
 
+[![Gem Version](https://badge.fury.io/rb/github_pages_rake_tasks.svg)](https://badge.fury.io/rb/github_pages_rake_tasks)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.com/jcouball/github_pages_rake_tasks.svg?branch=master)](https://travis-ci.com/jcouball/github_pages_rake_tasks)
 
 The `github_pages_rake_tasks` gem creates a rake task that pushes the contents
@@ -61,3 +63,7 @@ commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.or
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jcouball/github_pages_rake_tasks.
+
+## Copyright and License
+
+Copyright © 2019 James Couball. Free use of this software is granted under the terms of the MIT License. See LICENSE for details.
