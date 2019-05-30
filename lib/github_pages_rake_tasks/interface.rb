@@ -35,7 +35,7 @@ module GithubPagesRakeTasks
   class Interface
     extend Forwardable
 
-    def_delegators :@file_utils, :chdir, :rm_rf, :cp_r, :sh, :verbose
+    def_delegators :@file_utils, :chdir, :cp_r, :mkdir_p, :rm_rf, :sh, :verbose
     def_delegators :@dir, :mktmpdir
     def_delegator  :@dir, :exist?, :dir_exist?
     def_delegators :@file, :expand_path

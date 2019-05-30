@@ -66,6 +66,8 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
   describe '#publish' do
     context 'the documentation branch does not exist' do
       let(:branch_exists) { false }
+      let(:files_changed) { true }
+
       it 'should create the branch and push documentation to it' do
         publish_task
         expect(mocked_interface).to(
@@ -73,23 +75,18 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
             .with(verbose)
         )
 
-        # initialize_staging_dir
-        #
         expect(mocked_interface).to(
-          receive(:dir_exist?)
+          receive(:mkdir_p)
             .with(staging_dir)
-            .and_return(true)
-            .ordered
-            .once
         )
+
         expect(mocked_interface).to(
-          receive(:chdir)
-            .with(staging_dir) do |&block|
-            block.call(staging_dir)
-          end
-            .ordered
-            .once
+          receive(:chdir) { |_value, &block| block.call }
+            .with(staging_dir)
         )
+
+        # initialize_staging_dir --> initialize_git
+        #
         expect(mocked_interface).to(
           receive(:sh)
             .with('git init')
@@ -151,13 +148,131 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
         # initialize_staging_dir --> remove_staging_files
         #
         expect(mocked_interface).to(
-          receive(:chdir)
-            .with(staging_dir) do |&block|
-            block.call(staging_dir)
+          receive(:sh)
+            .with('git rm -r .')
+            .ordered
+            .once
+        )
+
+        # copy_doc_dir_to_staging_dir
+        #
+        absolute_doc_dir = File.join(project_root, doc_dir)
+        expect(mocked_interface).to(
+          receive(:expand_path)
+            .with(doc_dir, project_root)
+            .and_return(absolute_doc_dir)
+            .ordered
+            .once
+        )
+        expect(mocked_interface).to(
+          receive(:cp_r)
+            .with(File.join(absolute_doc_dir, '.'), staging_dir)
+            .ordered
+            .once
+        )
+
+        # commit_and_push_staging_dir
+        #
+        expect(mocked_interface).to(
+          receive(:sh)
+            .with('git add .')
+            .and_return(true)
+            .ordered
+            .once
+        )
+        expect(mocked_interface).to(
+          receive(:sh) { |_cmd, &block| block.call(files_changed, double('process_status')) }
+            .with("git commit -m 'Updating documentation'")
+            .and_return(true)
+            .ordered
+            .once
+        )
+        expect(mocked_interface).to(
+          receive(:sh)
+            .with("git push --set-upstream #{remote_name} #{branch_name}")
+            .and_return(true)
+            .ordered
+            .once
+        )
+
+        # clean_staging_dir
+        #
+        expect(mocked_interface).to(
+          receive(:rm_rf)
+            .with(staging_dir)
+            .ordered
+            .once
+        )
+        Rake.application.invoke_task(default_task_name)
+      end
+    end
+
+    context 'the documentation did not have changes' do
+      let(:branch_exists) { true }
+      let(:files_changed) { false }
+
+      it 'should update the branch' do
+        publish_task
+
+        expect(mocked_interface).to(
+          receive(:verbose) { |_value, &block| block.call }
+            .with(verbose)
+        )
+
+        expect(mocked_interface).to(
+          receive(:mkdir_p)
+            .with(staging_dir)
+        )
+
+        expect(mocked_interface).to(
+          receive(:chdir) { |_value, &block| block.call }
+            .with(staging_dir)
+        )
+
+        # initialize_staging_dir
+        #
+        expect(mocked_interface).to(
+          receive(:sh)
+            .with('git init')
+            .ordered
+            .once
+        )
+        expect(mocked_interface).to(
+          receive(:sh)
+            .with("git remote add '#{remote_name}' '#{repo_url}'")
+            .ordered
+            .once
+        )
+
+        # initialize_staging_dir --> remote_branch_exists?
+        #
+        cmd = "git ls-remote --exit-code --heads '#{repo_url}' '#{branch_name}'"
+        expect(mocked_interface).to(
+          receive(:sh)
+            .with(cmd) do |_cmd, &block|
+            block.call(branch_exists, double('process_status'))
           end
             .ordered
             .once
         )
+
+        # initialize_staging_dir --> checkout_existing_branch
+        #
+        expect(mocked_interface).to(
+          receive(:sh)
+            .with("git fetch '#{remote_name}' '#{branch_name}'")
+            .ordered
+            .once
+        )
+        expect(mocked_interface).to(
+          receive(:sh)
+            .with("git checkout '#{branch_name}'")
+            .ordered
+            .once
+        )
+
+        # initialize_staging_dir --> remove_staging_files
+        #
         expect(mocked_interface).to(
           receive(:sh)
             .with('git rm -r .')
@@ -185,14 +300,6 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
         # commit_and_push_staging_dir
         #
         expect(mocked_interface).to(
-          receive(:chdir)
-            .with(staging_dir) do |&block|
-            block.call(staging_dir)
-          end
-            .ordered
-            .once
-        )
-        expect(mocked_interface).to(
           receive(:sh)
             .with('git add .')
             .and_return(true)
@@ -200,15 +307,8 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
             .once
         )
         expect(mocked_interface).to(
-          receive(:sh)
+          receive(:sh) { |_cmd, &block| block.call(files_changed, double('process_status')) }
             .with("git commit -m 'Updating documentation'")
-            .and_return(true)
-            .ordered
-            .once
-        )
-        expect(mocked_interface).to(
-          receive(:sh)
-            .with("git push --set-upstream #{remote_name} #{branch_name}")
             .and_return(true)
             .ordered
             .once
@@ -225,8 +325,11 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
         Rake.application.invoke_task(default_task_name)
       end
     end
+
     context 'the documentation branch already exists' do
       let(:branch_exists) { true }
+      let(:files_changed) { true }
+
       it 'should update the branch' do
         publish_task
 
@@ -235,23 +338,18 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
             .with(verbose)
         )
 
+        expect(mocked_interface).to(
+          receive(:mkdir_p)
+            .with(staging_dir)
+        )
+
+        expect(mocked_interface).to(
+          receive(:chdir) { |_value, &block| block.call }
+            .with(staging_dir)
+        )
+
         # initialize_staging_dir
         #
-        expect(mocked_interface).to(
-          receive(:dir_exist?)
-            .with(staging_dir)
-            .and_return(true)
-            .ordered
-            .once
-        )
-        expect(mocked_interface).to(
-          receive(:chdir)
-            .with(staging_dir) do |&block|
-            block.call(staging_dir)
-          end
-            .ordered
-            .once
-        )
         expect(mocked_interface).to(
           receive(:sh)
             .with('git init')
@@ -295,14 +393,6 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
         # initialize_staging_dir --> remove_staging_files
         #
         expect(mocked_interface).to(
-          receive(:chdir)
-            .with(staging_dir) do |&block|
-              block.call(staging_dir)
-            end
-            .ordered
-            .once
-        )
-        expect(mocked_interface).to(
           receive(:sh)
             .with('git rm -r .')
             .ordered
@@ -329,14 +419,6 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
         # commit_and_push_staging_dir
         #
         expect(mocked_interface).to(
-          receive(:chdir)
-            .with(staging_dir) do |&block|
-            block.call(staging_dir)
-          end
-            .ordered
-            .once
-        )
-        expect(mocked_interface).to(
           receive(:sh)
             .with('git add .')
             .and_return(true)
@@ -344,7 +426,7 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
             .once
         )
         expect(mocked_interface).to(
-          receive(:sh)
+          receive(:sh) { |_cmd, &block| block.call(files_changed, double('process_status')) }
             .with("git commit -m 'Updating documentation'")
             .and_return(true)
             .ordered
