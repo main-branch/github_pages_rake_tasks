@@ -97,9 +97,12 @@ module GithubPagesRakeTasks
 
     def publish
       interface.verbose(verbose) do
-        initialize_staging_dir
-        copy_doc_dir_to_staging_dir
-        commit_and_push_staging_dir
+        interface.mkdir_p(staging_dir)
+        interface.chdir(staging_dir) do
+          initialize_staging_dir
+          copy_doc_dir_to_staging_dir
+          commit_and_push_staging_dir
+        end
         clean_staging_dir
       end
     end
@@ -126,15 +129,8 @@ module GithubPagesRakeTasks
     end
 
     def initialize_git
-      interface.chdir staging_dir do
-        interface.sh('git init')
-        interface.sh("git remote add '#{remote_name}' '#{repo_url}'")
-      end
-    end
-
-    def initialize_staging_repo
-      interface.mkdir_p(staging_dir) unless interface.dir_exist?(staging_dir)
-      initialize_git
+      interface.sh('git init')
+      interface.sh("git remote add '#{remote_name}' '#{repo_url}'")
     end
 
     # Creates `staging_dir` (if needed), clones the remote repository to it, and checks
@@ -143,7 +139,7 @@ module GithubPagesRakeTasks
     # Finally, removes all files using git rm
     #
     def initialize_staging_dir
-      initialize_staging_repo
+      initialize_git
       if remote_branch_exists?
         checkout_existing_branch
       else
@@ -165,10 +161,8 @@ module GithubPagesRakeTasks
     end
 
     def remove_staging_files
-      interface.chdir staging_dir do
-        interface.sh('git rm -r .') do
-          # ignore failure
-        end
+      interface.sh('git rm -r .') do
+        # ignore failure
       end
     end
 
@@ -177,10 +171,9 @@ module GithubPagesRakeTasks
     end
 
     def commit_and_push_staging_dir
-      interface.chdir staging_dir do
-        interface.sh('git add .')
-        interface.sh("git commit -m '#{commit_message}'")
-        interface.sh("git push --set-upstream #{remote_name} #{branch_name}")
+      interface.sh('git add .')
+      interface.sh("git commit -m '#{commit_message}'") do |commit_successful, _process_status|
+        interface.sh("git push --set-upstream #{remote_name} #{branch_name}") if commit_successful
       end
     end
   end
