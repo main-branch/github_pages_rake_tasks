@@ -83,6 +83,14 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
             .once
         )
         expect(mocked_interface).to(
+          receive(:chdir)
+            .with(staging_dir) do |&block|
+            block.call(staging_dir)
+          end
+            .ordered
+            .once
+        )
+        expect(mocked_interface).to(
           receive(:sh)
             .with('git init')
             .ordered
@@ -233,6 +241,14 @@ RSpec.describe GithubPagesRakeTasks::PublishTask do
           receive(:dir_exist?)
             .with(staging_dir)
             .and_return(true)
+            .ordered
+            .once
+        )
+        expect(mocked_interface).to(
+          receive(:chdir)
+            .with(staging_dir) do |&block|
+            block.call(staging_dir)
+          end
             .ordered
             .once
         )
