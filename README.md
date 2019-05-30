@@ -36,14 +36,14 @@ Add the `github-pages:publish` task to Rake by adding the following lines in you
 
 ```Ruby
 require 'github_pages_rake_tasks'
-GitHubPagesRakeTasks.Tasks.new
+GitHubPagesRakeTasks::PublishTask.new
 ```
 
 You can also configure the task by providing a block during initialization:
 
 ```Ruby
 require 'github_pages_rake_tasks'
-GitHubPagesRakeTasks.Tasks.new do |task|
+GitHubPagesRakeTasks::PublishTask.new do |task|
   task.doc_dir = 'documentation'
   task.repo_url = 'https://github.com/jcouball/github_pages_documentation'
   task.branch_name = 'master'
