@@ -8,7 +8,7 @@ before_install: gem install bundler -v 2.0.1
 deploy:
   - provider: pages
     skip_cleanup: true
-    github_token: "$GITHUB_TOKEN"
+    github_token: $GITHUB_TOKEN
     local_dir: doc
     verbose: true
     on:
