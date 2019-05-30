@@ -1,29 +1,23 @@
 language: ruby
-
 rvm:
 - 2.4
 - 2.5
 - 2.6
-
 cache: bundler
-
 before_install: gem install bundler -v 2.0.1
-
 deploy:
   - provider: pages
     skip_cleanup: true
-    github_token: $GITHUB_TOKEN
+    github_token: "$GITHUB_TOKEN"
     local_dir: doc
     verbose: true
     on:
       repo: jcouball/github_pages_rake_tasks
       rvm: 2.4
-
   - provider: rubygems
     api_key:
-      secure: KahdMURAHsv8wRwKtAq49C2MtfK/whBXH8nZg94modg3Ke7lvJXhuvDeg+nBvMDG0OIWE8p1nEuC4QZmFfx3AXbHUVw3oajau80Z8K952ckPEJQpYUIvbx6EXu+7rA9awnYdeM1YY+6GjE62WvmSyNyCnn8HbelJSNjik/DuJLOJyEiqT16GqvZsC2bxIB5A0HUVZYfSGSJAHjrfSsI+rOzP1f05Ug99UhNhtGKaRD3sXURhjy4UOU6zHtVin8x5tJ+WlFhzuf+V5xYg9bI1n++TZLL243RqxhioNDAIZWzGcO8xQuLuAuZfXqv1dtFyf8SUF5I/xypJPJMhq9INu4OtaEqQZU6LnpG6Sm/KcgBTCKniD1pj5SCA3Je3skgP/Hxl84Zt5jdmAnSvsNKM7/eaOwqeK6Snp+fSjOZNnG+tvOP4bDoVDl68vou+Ou3VayEsfp9SQg9B8hpZ3yhLyqR6AbTrTCXIzG+Fd7vE2+ldemKx2fo5IokaEuJeKAQPxaYn9b0paCZ0URxKKv6MRosa7SO6BIlAuzqNXHmGgKWFz4n0dPoAsmHC6lW4nHR98LpgvSAOneRLomUvJ9MtQ6y1oXH8wfCYX7WkW5uQSi7cLM9gE2uz0XGxKAW8udqXbYX3LaGl6ij9nmbwCCPuuIeziTiMrQKyPotfJNlP6Sw=
+      secure: EMQl5zG98sWV37oH7oKBUDVWp3WYFp41EBsuMr7lE36i1NDJeqSzXDbCOdBCDX5vH0U/2DAZ21D/mF32u+PKXaH/L1OPt8xPdccx2PfJqWvfHmXdPZcqJt9ytEjBJYXDfjnhq9GdElqBUm4A2PwXfzC171kforSDapJ0BFjTbsC6/5DcsLgZWoCnu/b9F4tSs8UFvaPf5PEwo0Y8LPj9RrHDicFQ2V2PAZA0O213Gmv4o2aOn7XejaUROS1ThDeX1rnb99yqgItMlEeRpItCFdVcXoBJrpVIK681742TufG2zFdljOr7egYwLdr/cCFAdhR9H0rk0buNU1RBsiBfmu//nVuCGRpOsrNhx+Ruv7UtR0BHzv5jBzrwyEVcU8Jwm9XNQ7go8l+VsRUD1R/CQfKt8TDKQM8ysx1uvJ0/9gi6tgaSCQlUEcKw1Ra5CtKNppoX328uFTyn4WqffGGK/DXnYLVrSRwXxHn24jmWKA0X+4sMoK+7BYYYvAfvauC+6cBcSF2vBIIjSP2QeVkxBopM1xKLmTrExWGZqflmdiDSevdS0lzoL0lGPvfG9aLP4XTqF+vVnlu5+YASEzGUhSzFK6N/2efTj5YBBrD1O1IsA2v+bwglOfBk+i3Bi9keNpjXzgIu1EEQexrkvQ/D1A5jkm0COorT51ThdG0I49I=
     gem: github_pages_rake_tasks
     on:
       repo: jcouball/github_pages_rake_tasks
       rvm: 2.4
-
