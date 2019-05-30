@@ -1,10 +1,9 @@
----
 language: ruby
 
 rvm:
-  - 2.4
-  - 2.5
-  - 2.6
+- 2.4
+- 2.5
+- 2.6
 
 cache: bundler
 
@@ -17,10 +16,14 @@ deploy:
     local_dir: doc
     verbose: true
     on:
+      repo: jcouball/github_pages_rake_tasks
       rvm: 2.4
 
   - provider: rubygems
     api_key:
-      secure: HA1sMG5jqnSSpcIEi0Ej3HDAzff5dMNvGeb1FK5BAnfV+C5pHTkUU26+fEUmrr31nDeU3hgEv+rDdz7+Udt5hO9NGIF3bRhlqBYkkaIwLfOragaoROyq+tAPag7Mm5VKfzbXYE7dqEDZSQLjHIiY3UxksNnV3kQ+VvXL1eHg5n765EnwJP2F+FYWd7NBaq+QitdKEUZlY1Xktyq+5Isk7g0mYKZEf8K1S7MU79m4vHLI6GAT2sTCxGSsAAJejL7OYNF7Yo/8DcIsyqQjjJmkZVbHfIgpw9GrQVILNeP+4tA4LdZ9us/uk+VyM5iWMdAvQk9MW3Sl3VNo2fj9IYkOtTpqPiHoWD/zKdjI0qeDFLhaj7inSvLsXRL3IAibGV0zaNi7pNg5bwL4jKcXQDeJri4m0eKfYZQKOXQ9NqbnAHUiSrpdgJxbzmaZvMfIEI18aBXa3xdKKdBQk0ogeh2FvqIL7dCHamMsyAZRWIqOLiKwNnZ2o/4JvCgnELPo/nhmvdAE08KV4i3TE8eHBipY6ZLIThVMNURGAF9Le4bcFrGcCvPVEvzPXHV9QE91cQ8mN9NM9Rz3SZuqvSIwLGDAmor5oyxnWr9Vwm2S/7OAxdD2X2l+sTks0U/EXQ+I+axEexMUgCOgUChSz8pAHxujc+/nRLJ4VE/MZ1ZO7KMAMok=
+      secure: KahdMURAHsv8wRwKtAq49C2MtfK/whBXH8nZg94modg3Ke7lvJXhuvDeg+nBvMDG0OIWE8p1nEuC4QZmFfx3AXbHUVw3oajau80Z8K952ckPEJQpYUIvbx6EXu+7rA9awnYdeM1YY+6GjE62WvmSyNyCnn8HbelJSNjik/DuJLOJyEiqT16GqvZsC2bxIB5A0HUVZYfSGSJAHjrfSsI+rOzP1f05Ug99UhNhtGKaRD3sXURhjy4UOU6zHtVin8x5tJ+WlFhzuf+V5xYg9bI1n++TZLL243RqxhioNDAIZWzGcO8xQuLuAuZfXqv1dtFyf8SUF5I/xypJPJMhq9INu4OtaEqQZU6LnpG6Sm/KcgBTCKniD1pj5SCA3Je3skgP/Hxl84Zt5jdmAnSvsNKM7/eaOwqeK6Snp+fSjOZNnG+tvOP4bDoVDl68vou+Ou3VayEsfp9SQg9B8hpZ3yhLyqR6AbTrTCXIzG+Fd7vE2+ldemKx2fo5IokaEuJeKAQPxaYn9b0paCZ0URxKKv6MRosa7SO6BIlAuzqNXHmGgKWFz4n0dPoAsmHC6lW4nHR98LpgvSAOneRLomUvJ9MtQ6y1oXH8wfCYX7WkW5uQSi7cLM9gE2uz0XGxKAW8udqXbYX3LaGl6ij9nmbwCCPuuIeziTiMrQKyPotfJNlP6Sw=
+    gem: github_pages_rake_tasks
     on:
+      repo: jcouball/github_pages_rake_tasks
       rvm: 2.4
+
