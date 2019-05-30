@@ -125,13 +125,16 @@ module GithubPagesRakeTasks
       end
     end
 
-    def initialize_staging_repo
-      interface.mkdir_p(staging_dir) unless interface.dir_exist?(staging_dir)
-
+    def initialize_git
       interface.chdir staging_dir do
         interface.sh('git init')
         interface.sh("git remote add '#{remote_name}' '#{repo_url}'")
       end
+    end
+
+    def initialize_staging_repo
+      interface.mkdir_p(staging_dir) unless interface.dir_exist?(staging_dir)
+      initialize_git
     end
 
     # Creates `staging_dir` (if needed), clones the remote repository to it, and checks
