@@ -12,12 +12,13 @@ deploy:
     local_dir: doc
     verbose: true
     on:
+      branch: master
       repo: jcouball/github_pages_rake_tasks
       rvm: 2.4
   - provider: rubygems
-    api_key:
-      secure: EMQl5zG98sWV37oH7oKBUDVWp3WYFp41EBsuMr7lE36i1NDJeqSzXDbCOdBCDX5vH0U/2DAZ21D/mF32u+PKXaH/L1OPt8xPdccx2PfJqWvfHmXdPZcqJt9ytEjBJYXDfjnhq9GdElqBUm4A2PwXfzC171kforSDapJ0BFjTbsC6/5DcsLgZWoCnu/b9F4tSs8UFvaPf5PEwo0Y8LPj9RrHDicFQ2V2PAZA0O213Gmv4o2aOn7XejaUROS1ThDeX1rnb99yqgItMlEeRpItCFdVcXoBJrpVIK681742TufG2zFdljOr7egYwLdr/cCFAdhR9H0rk0buNU1RBsiBfmu//nVuCGRpOsrNhx+Ruv7UtR0BHzv5jBzrwyEVcU8Jwm9XNQ7go8l+VsRUD1R/CQfKt8TDKQM8ysx1uvJ0/9gi6tgaSCQlUEcKw1Ra5CtKNppoX328uFTyn4WqffGGK/DXnYLVrSRwXxHn24jmWKA0X+4sMoK+7BYYYvAfvauC+6cBcSF2vBIIjSP2QeVkxBopM1xKLmTrExWGZqflmdiDSevdS0lzoL0lGPvfG9aLP4XTqF+vVnlu5+YASEzGUhSzFK6N/2efTj5YBBrD1O1IsA2v+bwglOfBk+i3Bi9keNpjXzgIu1EEQexrkvQ/D1A5jkm0COorT51ThdG0I49I=
+    api_key: $RUBYGEMS_API_KEY
     gem: github_pages_rake_tasks
     on:
+      branch: master
       repo: jcouball/github_pages_rake_tasks
       rvm: 2.4
