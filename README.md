@@ -9,7 +9,7 @@ The `github_pages_rake_tasks` gem creates a rake task that pushes files
 from a local documentation directory to a remote Git repository branch.
 
 By default, the rake task `github-pages:publish` is created which pushes the `doc`
-directory within the local copy of your repository to the same repository's
+directory within the local copy of a repository to the same repository's
 `gh-pages` branch.  The contents of the branch are completely replaced by the
 contents of the documentation directory.
 
