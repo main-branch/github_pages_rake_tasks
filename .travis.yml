@@ -19,7 +19,8 @@ before_deploy:
       git checkout ${TRAVIS_BRANCH}
       gem install bump
       bump patch --commit-message "[skip ci]"
-      git push
+      remote=https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG
+      git push --follow-tags "$remote" "$TRAVIS_BRANCH"
     fi
 
 deploy:
