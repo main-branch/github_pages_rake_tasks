@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.com/jcouball/github_pages_rake_tasks.svg?branch=master)](https://travis-ci.com/jcouball/github_pages_rake_tasks)
 [![Documentation](https://img.shields.io/badge/Documentation-OK-green.svg)](https://jcouball.github.io/github_pages_rake_tasks/)
 
-The `github_pages_rake_tasks` gem creates a rake task that pushes the contents
+The `github_pages_rake_tasks` gem creates a rake task that pushes files
 from a local documentation directory to a remote Git repository branch.
 
 By default, the rake task `github-pages:publish` is created which pushes the `doc`
