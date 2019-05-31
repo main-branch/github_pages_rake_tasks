@@ -13,6 +13,7 @@ before_deploy:
   - echo "machine github.com\n    login jcouball\n    password ${GITHUB_TOKEN}" > ~/.netrc
   - git config --global user.email "travis@travis-ci.org"
   - git config --global user.name "Travis CI"
+  - gem install bump
   - bump patch --commit-message "[skip ci]"
 
 deploy:
