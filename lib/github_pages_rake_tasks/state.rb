@@ -28,7 +28,8 @@ module GithubPagesRakeTasks
     def doc_dir
       @doc_dir ||= 'doc'
     end
-    attr_writer :doc_dir
+    attr_writer :doc_dir, :project_root, :repo_url, :branch_name, :staging_dir, :remote_name,
+                :interface, :rake_namespace
 
     # The absolute path to the project's Git repository. {doc_dir} is relative to this
     # path.
@@ -41,7 +42,6 @@ module GithubPagesRakeTasks
     def project_root
       @project_root ||= interface.send(:`, 'git rev-parse --show-toplevel').chomp
     end
-    attr_writer :project_root
 
     # The URL to the remote repository to push documentation.
     #
@@ -54,7 +54,6 @@ module GithubPagesRakeTasks
         interface.send(:`, "git config --get remote.#{remote_name}.url").chomp
       end
     end
-    attr_writer :repo_url
 
     # The branch to push documentation to.
     #
@@ -65,7 +64,6 @@ module GithubPagesRakeTasks
     def branch_name
       @branch_name ||= 'gh-pages'
     end
-    attr_writer :branch_name
 
     # The directory where the documentation is staged prior to pushing to the Git remote.
     # All files are copied from {doc_dir} to {staging_dir} where the push to the Git remote is
@@ -82,7 +80,6 @@ module GithubPagesRakeTasks
     def staging_dir
       @staging_dir ||= interface.mktmpdir('github-pages-publish-')
     end
-    attr_writer :staging_dir
 
     # @!attribute quiet
     # Silence all output from the `github-pages:publish` task.
@@ -139,7 +136,6 @@ module GithubPagesRakeTasks
     def remote_name
       @remote_name ||= 'origin'
     end
-    attr_writer :remote_name
 
     # An object that implements all methods that touch the world outside of
     # the PublishTask class.  This includes dealing with the file system, issuing
@@ -155,7 +151,6 @@ module GithubPagesRakeTasks
     def interface
       @interface ||= Interface.new
     end
-    attr_writer :interface
 
     # The Rake namespace for the publish task.
     #
@@ -166,6 +161,5 @@ module GithubPagesRakeTasks
     def rake_namespace
       @rake_namespace ||= 'github-pages'
     end
-    attr_writer :rake_namespace
   end
 end

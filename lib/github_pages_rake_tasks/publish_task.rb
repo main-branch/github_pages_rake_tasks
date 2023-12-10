@@ -66,6 +66,8 @@ module GithubPagesRakeTasks
     #   are passed to the yielded block.
     #
     def initialize(*task_args, &initialization_block)
+      super
+
       @state = State.new
 
       # Allow user to override defaults
@@ -75,9 +77,7 @@ module GithubPagesRakeTasks
       namespace rake_namespace do
         desc "Publish #{doc_dir} to #{repo_url}##{branch_name}"
         task :publish do
-          display_header
-          publish
-          display_footer
+          publish_task
         end
       end
     end
@@ -85,6 +85,12 @@ module GithubPagesRakeTasks
     private
 
     # @!visibility private
+
+    def publish_task
+      display_header
+      publish
+      display_footer
+    end
 
     def display_header
       print "Publishing #{doc_dir} to #{repo_url}##{branch_name}..." unless quiet
