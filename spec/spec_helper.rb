@@ -1,9 +1,9 @@
 # Copyright (c) 2019 James Couball
 # frozen_string_literal: true
 
-require 'bundler/setup'
-require 'simplecov'
-require 'simplecov-lcov'
+require 'rspec'
+
+# Configure RSpec
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -18,11 +18,51 @@ RSpec.configure do |config|
 end
 
 # Setup simplecov
-SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
-SimpleCov.formatters = [
-  SimpleCov::Formatter::LcovFormatter,
-  SimpleCov::Formatter::HTMLFormatter
-]
+
+require 'simplecov'
+require 'simplecov-lcov'
+
+SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, SimpleCov::Formatter::LcovFormatter]
+
+# Fail the rspec run if code coverage falls below the configured threshold
+#
+# Skip this check if the NOCOV environment variable is set to TRUE
+#
+# ```Shell
+# NOCOV=TRUE rspec
+# ```
+#
+# Example of running the tests in an infinite loop writing failures to `fail.txt`:
+#
+# ```Shell
+# while true; do
+#   NOCOV=TRUE rspec spec/process_executer/monitored_pipe_spec.rb | sed -n '/^Failures:$/, /^Finished /p' >> fail.txt
+# done
+# ````
+#
+test_coverage_threshold = 100
+SimpleCov.at_exit do
+  unless RSpec.configuration.dry_run?
+    SimpleCov.result.format!
+
+    if ENV['NOCOV']&.upcase != 'TRUE' && SimpleCov.result.covered_percent < test_coverage_threshold
+      warn "FAIL: RSpec Test coverage fell below #{test_coverage_threshold}%"
+
+      warn "\nThe following lines were not covered by tests:\n"
+      SimpleCov.result.files.each do |source_file| # SimpleCov::SourceFile
+        source_file.missed_lines.each do |line| # SimpleCov::SourceFile::Line
+          puts "  #{source_file.project_filename}:#{line.number}"
+        end
+      end
+      warn "\n"
+
+      exit 1
+    end
+  end
+end
+
+# Start SimpleCov before loading the code to be tested
+
 SimpleCov.start
 
 require 'github_pages_rake_tasks'
