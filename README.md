@@ -22,15 +22,21 @@ This task is useful for publishing `rdoc` or `yard` documentation using
 
 Add this line to your application's Gemfile:
 
-    gem 'github_pages_rake_tasks'
+```Shell
+gem 'github_pages_rake_tasks'
+```
 
 And then execute:
 
-    $ bundle
+```Shell
+bundle
+```
 
 Or install it directly with the `gem` command line:
 
-    $ gem install github_pages_rake_tasks
+```Shell
+gem install github_pages_rake_tasks
+```
 
 ## Usage
 
@@ -51,6 +57,9 @@ GitHubPagesRakeTasks::PublishTask.new do |task|
   task.branch_name = 'master'
 end
 ```
+
+An instance of [GithubPagesRakeTasks::State](https://rubydoc.info/gems/github_pages_rake_tasks/GithubPagesRakeTasks/State)
+is passed to the initialization block (named `task` in the example above).
 
 See [the full usage documentation](https://github.com/pages/jcouball/guthub_pages_rake_tasks) for more details.
 
