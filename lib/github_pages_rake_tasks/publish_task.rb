@@ -86,21 +86,57 @@ module GithubPagesRakeTasks
 
     # @!visibility private
 
+    # Publish the documentation directory to the specified repository and branch
+    #
+    # Publishes the document directory to the specified repository and branch
+    # displaying a header before publishing and a footer after publishing. The header
+    # and footer are not displayed if the `quiet` flag is set.
+    #
+    # @see #display_header
+    # @see #publish
+    # @see #display_footer
+    #
+    # @return [void]
+    #
+    # @api private
+    #
     def publish_task
       display_header
       publish
       display_footer
     end
 
+    # Print a header message before the publishing
+    #
+    # The message includes the document directory, repository URL, and branch name.
+    # The message is not printed if the `quiet` flag is set.
+    # An extra line is printed if the `verbose` flag is set.
+    #
+    # @return [void]
+    #
+    # @api private
     def display_header
       print "Publishing #{doc_dir} to #{repo_url}##{branch_name}..." unless quiet
       puts if verbose
     end
 
+    # Print a success message after the publishing
+    #
+    # The message is not printed if the `quiet` flag is set.
+    #
+    # @return [void]
+    #
+    # @api private
     def display_footer
       puts 'SUCCESS' unless quiet
     end
 
+    # Executes the publishing process
+    #
+    # @return [void]
+    #
+    # @api private
+    #
     def publish
       interface.verbose(verbose) do
         interface.mkdir_p(staging_dir)
@@ -113,12 +149,24 @@ module GithubPagesRakeTasks
       end
     end
 
+    # Fetch and checks out an existing branch
+    #
+    # @return [void]
+    #
+    # @api private
+    #
     def checkout_existing_branch
       # only download the needed branch from GitHub
       interface.sh("git fetch '#{remote_name}' '#{branch_name}'")
       interface.sh("git checkout '#{branch_name}'")
     end
 
+    # Creates `branch_name` in the remote repository
+    #
+    # @return [Boolean] true if the branch exists in the remote repository, false otherwise.
+    #
+    # @api private
+    #
     def create_new_branch
       interface.sh("git checkout --orphan '#{branch_name}'")
       interface.file_write('index.html', 'Future home of documentation')
@@ -127,6 +175,12 @@ module GithubPagesRakeTasks
       interface.sh("git push '#{remote_name}' '#{branch_name}'")
     end
 
+    # Checks if `branch_name` exists in the remote repository
+    #
+    # @return [Boolean] true if the branch exists in the remote repository, false otherwise
+    #
+    # @api private
+    #
     def remote_branch_exists?
       cmd = "git ls-remote --exit-code --heads '#{repo_url}' '#{branch_name}'"
       interface.sh(cmd) do |branch_exists, _process_status|
@@ -134,15 +188,28 @@ module GithubPagesRakeTasks
       end
     end
 
+    # Initializes the git repository in `staging_dir`
+    #
+    # @return [void]
+    #
+    # @api private
+    #
     def initialize_git
       interface.sh('git init')
       interface.sh("git remote add '#{remote_name}' '#{repo_url}'")
     end
 
-    # Creates `staging_dir` (if needed), clones the remote repository to it, and checks
-    # out `branch_name`.  Creates `branch_name` in the remote is needed.
+    # Initializes the staging directory
     #
-    # Finally, removes all files using git rm
+    # * Creates `staging_dir` (if needed)
+    # * Clones the remote repository to it
+    # * Checks out `branch_name`
+    # * Creates `branch_name` in the remote if needed.
+    # * Finally, removes all files using git rm
+    #
+    # @return [void]
+    #
+    # @api private
     #
     def initialize_staging_dir
       initialize_git
@@ -154,28 +221,68 @@ module GithubPagesRakeTasks
       remove_staging_files
     end
 
+    # Removes the staging directory
+    #
+    # @return [void]
+    #
+    # @api private
+    #
     def clean_staging_dir
       interface.rm_rf staging_dir
     end
 
+    # @!attribute [r] absolute_doc_dir
+    #
+    # The absolute path to `doc_dir` relative to `project_root`
+    #
+    # @return [String]
+    #
+    # @api private
+    #
     def absolute_doc_dir
       @absolute_doc_dir ||= interface.expand_path(doc_dir, project_root)
     end
 
+    # @!attribute [r] commit_message
+    #
+    # The commit message to use when committing the documentation
+    #
+    # @return [String]
+    #
+    # @api private
+    #
     def commit_message
       @commit_message ||= 'Updating documentation'
     end
 
+    # Removes all files from the staging directory
+    #
+    # @return [void]
+    #
+    # @api private
+    #
     def remove_staging_files
       interface.sh('git rm -r .') do
         # ignore failure
       end
     end
 
+    # Copies the contents of `absolute_doc_dir` to `staging_dir`
+    #
+    # @return [void]
+    #
+    # @api private
+    #
     def copy_doc_dir_to_staging_dir
       interface.cp_r(File.join(absolute_doc_dir, '.'), staging_dir)
     end
 
+    # Commits and pushes the contents of `staging_dir` to the remote repository
+    #
+    # @return [void]
+    #
+    # @api private
+    #
     def commit_and_push_staging_dir
       interface.sh('git add .')
       interface.sh("git commit -m '#{commit_message}'") do |commit_successful, _process_status|
