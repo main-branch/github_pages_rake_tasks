@@ -1,0 +1,4 @@
+# Defines who must review pull requests.
+# See https://help.github.com/articles/about-codeowners/ for details.
+
+* @jcouball @main-branch/github_pages_rake_tasks-codeowners

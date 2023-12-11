@@ -70,8 +70,5 @@ module GithubPagesRakeTasks
     #
     # @return [String] the output of the command
     #
-    def `(cmd)
-      super
-    end
   end
 end
