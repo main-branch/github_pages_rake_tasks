@@ -48,6 +48,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'semverify', '0.3.0'
   spec.add_development_dependency 'simplecov', '~> 0.22'
   spec.add_development_dependency 'simplecov-lcov', '~> 0.8'
-  spec.add_development_dependency 'yard', '~> 0.9'
-  spec.add_development_dependency 'yardstick', '~> 0.9'
+
+  unless RUBY_PLATFORM == 'java'
+    spec.add_development_dependency 'redcarpet', '~> 3.6'
+    spec.add_development_dependency 'yard', '~> 0.9', '>= 0.9.28'
+    spec.add_development_dependency 'yardstick', '~> 0.9'
+  end
 end
