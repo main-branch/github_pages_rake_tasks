@@ -4,8 +4,6 @@
 [![Documentation](https://img.shields.io/badge/Documentation-Latest-green)](https://rubydoc.info/gems/github_pages_rake_tasks/)
 [![Change Log](https://img.shields.io/badge/CHANGELOG-Latest-green)](https://rubydoc.info/gems/github_pages_rake_tasks/file/CHANGELOG.md)
 [![Build Status](https://github.com/main-branch/github_pages_rake_tasks/workflows/CI%20Build/badge.svg?branch=main)](https://github.com/main-branch/github_pages_rake_tasks/actions?query=workflow%3ACI%20Build)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a67ad0b61d3687e33181/maintainability)](https://codeclimate.com/github/main-branch/github_pages_rake_tasks/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a67ad0b61d3687e33181/test_coverage)](https://codeclimate.com/github/main-branch/github_pages_rake_tasks/test_coverage)
 
 The `github_pages_rake_tasks` gem creates a rake task that pushes files
 from a local documentation directory to a remote Git repository branch.

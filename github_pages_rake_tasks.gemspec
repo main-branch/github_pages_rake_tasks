@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.homepage = 'https://github.com/jcouball/github_pages_rake_tasks'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 3.0.0'
+  spec.required_ruby_version = '>= 3.1.0'
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.org'
   spec.metadata['rubygems_mfa_required'] = 'true'
@@ -42,10 +42,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler-audit', '~> 0.9'
-  spec.add_development_dependency 'rake', '~> 13.1'
-  spec.add_development_dependency 'rspec', '~> 3.12'
-  spec.add_development_dependency 'rubocop', '~> 1.58'
-  spec.add_development_dependency 'semverify', '0.3.0'
+  spec.add_development_dependency 'rake', '~> 13.2'
+  spec.add_development_dependency 'rspec', '~> 3.13'
+  spec.add_development_dependency 'rubocop', '~> 1.75'
+  spec.add_development_dependency 'semverify', '~> 0.3'
   spec.add_development_dependency 'simplecov', '~> 0.22'
   spec.add_development_dependency 'simplecov-lcov', '~> 0.8'
 
