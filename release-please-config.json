@@ -1,0 +1,22 @@
+{
+  "bootstrap-sha": "63e60714532721c2f407d6c15d7f80d4b3062db8",
+  "packages": {
+    ".": {
+      "release-type": "ruby",
+      "package-name": "github_pages_rake_tasks",
+      "changelog-path": "CHANGELOG.md",
+      "version-file": "lib/github_pages_rake_tasks/version.rb",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true,
+      "draft": false,
+      "prerelease": false,
+      "include-component-in-tag": false
+    }
+  },
+  "plugins": [
+    {
+      "type": "sentence-case"
+    }
+  ],
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
+}
