@@ -3,5 +3,5 @@
 
 module GithubPagesRakeTasks
   # Version of this module
-  VERSION = '1.0.1'
+  VERSION = '1.0.2'
 end
