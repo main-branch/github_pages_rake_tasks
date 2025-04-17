@@ -4,6 +4,13 @@ Changes for each release are listed in this file. Changes prior to v1.0.0 were n
 
 This project adheres to [Semantic Versioning](https://semver.org/) for its releases.
 
+## [1.0.3](https://github.com/main-branch/github_pages_rake_tasks/compare/v1.0.2...v1.0.3) (2025-04-17)
+
+
+### Bug Fixes
+
+* Do not trigger build workflows after merging to main or for release PRs ([#31](https://github.com/main-branch/github_pages_rake_tasks/issues/31)) ([9acf1c9](https://github.com/main-branch/github_pages_rake_tasks/commit/9acf1c923df2ff32b632ef3c3d56dd9a1591c547))
+
 ## [1.0.2](https://github.com/main-branch/github_pages_rake_tasks/compare/v1.0.1...v1.0.2) (2025-04-16)
 
 
