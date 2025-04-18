@@ -4,6 +4,13 @@ Changes for each release are listed in this file. Changes prior to v1.0.0 were n
 
 This project adheres to [Semantic Versioning](https://semver.org/) for its releases.
 
+## [1.0.4](https://github.com/main-branch/github_pages_rake_tasks/compare/v1.0.3...v1.0.4) (2025-04-18)
+
+
+### Other Changes
+
+* Configure release-please to includes all changes in the CHANGELOG ([9586d0a](https://github.com/main-branch/github_pages_rake_tasks/commit/9586d0a91975d221846a3b69c7c0e9a012dd0c77))
+
 ## [1.0.3](https://github.com/main-branch/github_pages_rake_tasks/compare/v1.0.2...v1.0.3) (2025-04-17)
 
 
