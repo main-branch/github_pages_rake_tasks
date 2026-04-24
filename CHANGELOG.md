@@ -4,6 +4,13 @@ Changes for each release are listed in this file. Changes prior to v1.0.0 were n
 
 This project adheres to [Semantic Versioning](https://semver.org/) for its releases.
 
+## [1.0.5](https://github.com/main-branch/github_pages_rake_tasks/compare/v1.0.4...v1.0.5) (2026-04-24)
+
+
+### Other Changes
+
+* **dependencies:** Update dependencies for all GitHub Actions workflows ([27fee47](https://github.com/main-branch/github_pages_rake_tasks/commit/27fee475bfd7b90f2eb943c148355e00b4d163de))
+
 ## [1.0.4](https://github.com/main-branch/github_pages_rake_tasks/compare/v1.0.3...v1.0.4) (2025-04-18)
 
 
